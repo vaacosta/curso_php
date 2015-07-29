@@ -24,5 +24,5 @@ $result = mysql_query($conexion, $query);
 while ($row = mysqli_fetch_assoc($result)) {
 	echo $row['id']." ".$row['nombre']." ".$row['descripcion'];
 }
-conexion = null;
+mysqli_close(conexion);
 ?>
