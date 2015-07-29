@@ -15,7 +15,7 @@ $conexion = mysqli_connect(
 	$port);
 
 if(!$conexion) {
-	die(FINALIZO LA CONEXION);
+	die("FINALIZO LA CONEXION");
 }
 echo "CONEXION EXITOSA";
 ?>
