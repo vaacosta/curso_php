@@ -1,28 +1,42 @@
+<html>
+<form>
+  <head>
+    <!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+    </head>
+<body>
+<form name="input" action="index.php" method="POST">
+ <div class="input-group">
+   <span class="input-group-btn">
+    <input type="submit" type="button">IR!</button>
+    </span>
+    <input type="text" name="word" class="form-control" placeholder="search for...">
+   </div>
+</form>
 <?php
-echo "CONEXION A LA BASE DE DATOS";
-$URL = "sql2.freemysqlhosting.net";
-$database = "sql285298";
-$usuario = "sql285298";
-$password = "bJ1*gX6%";
-$port = 3306;
+require  __DIR__.'/vendor/autoload.php';
 
-//CREAR CONECCION
-$conexion = mysqli_connect(
-	$URL,
-	$usuario,
-	$password,
-	$database,
-	$port);
-
-if(!$conexion) {
-	die("FINALIZO LA CONEXION");
+$response = Unirest\Request::get("https://montanaflynn-dictionary.p.mashape.com/define?word=".$_GET["word"],
+  array(
+    "X-Mashape-Key" => "ZA8k3CJvxdmshT0XPS3S6WV6vnfwp1hj5F9jsnNujBw5cKjh2Y",
+    "Accept" => "application/json"
+  )
+);
+echo "<ul class=\"nav nav-pills\">";
+foreach($response->body->definitions as $definition)
+{
+ echo "<li role=\"presentation\"><a href=\"#\">".$definition->text."</a></li>";
 }
-echo "CONEXION EXITOSA";
-
-$query = "select * from demo";
-$result = mysqli_query($conexion, $query);
-while ($row = mysqli_fetch_assoc($result)) {
-	echo $row['id']." ".$row['nombre']." ".$row['descripcion'];
-}
-mysqli_close(conexion);
+ echo "</ul>";
 ?>
+ </div>
+</div>
+</body> 
+</html>
